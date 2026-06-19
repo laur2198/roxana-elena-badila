@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  alt?: boolean;
+}
+const {
+  title = 'Hai să facem primul pas împreună',
+  text = 'Poți începe cu o întrebare, cu nevoia de a clarifica ceva sau direct cu o programare. Îți răspund cât pot de repede.',
+  alt = false,
+} = Astro.props;
+---
+<section class={`sec ${alt ? 'sec-alt' : ''}`}>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="sec-cta reveal">
+      <a href="/contact" class="btn">
+        <Icon name="calendar" width={17} height={17} />
+        Programează o ședință
+      </a>
+    </div>
+  </div>
+</section>

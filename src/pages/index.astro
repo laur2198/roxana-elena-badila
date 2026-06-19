@@ -1,0 +1,179 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import { SITE, SERVICES } from '../consts';
+import { formatDate, readingTime } from '../lib/reading-time';
+
+// Cele mai recente 3 articole publicate.
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 3);
+
+const serviceIcons: Record<string, string> = {
+  'psihoterapie-individuala': 'user',
+  'evaluare-psihologica': 'clipboard',
+  'consiliere-psihologica': 'message',
+  'sedinte-online': 'monitor',
+};
+
+const steps = [
+  { n: '01', t: 'Primul contact', d: 'Îmi scrii sau mă suni. Stabilim împreună o primă întâlnire, la cabinet sau online.' },
+  { n: '02', t: 'Ședința de evaluare', d: 'Ne cunoaștem, înțeleg ce te aduce în terapie și clarificăm obiectivele.' },
+  { n: '03', t: 'Lucrul propriu-zis', d: 'Ședințe regulate (de regulă săptămânale), în care construim instrumente concrete.' },
+  { n: '04', t: 'Consolidare & final', d: 'Pe măsură ce apar schimbările, rărim întâlnirile și încheiem când te simți pregătit.' },
+];
+
+const faqItems = [
+  { q: 'Cât durează o ședință și cât de des au loc?', a: 'O ședință durează în mod obișnuit 50 de minute. La început întâlnirile sunt de regulă săptămânale, iar pe parcurs frecvența se poate adapta în funcție de evoluția ta.' },
+  { q: 'Ce se discută rămâne confidențial?', a: 'Da. Tot ce discutăm este confidențial, în limitele stabilite de codul deontologic al profesiei de psiholog. Confidențialitatea este o bază esențială a relației terapeutice.' },
+  { q: 'Ședințele online sunt la fel de eficiente?', a: 'Pentru psihoterapia adulților, ședințele online oferă în general aceeași calitate a lucrului ca cele la cabinet. Ai nevoie doar de un loc liniștit și o conexiune bună la internet.' },
+];
+---
+<Base
+  title={undefined}
+  description={SITE.defaultDescription}
+  canonicalPath="/"
+>
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Brașov · Cabinet &amp; online</span>
+        <h1>Un spațiu sigur, în care <em>nespusul</em> își găsește numele.</h1>
+        <p class="lead">Psihoterapie individuală pentru adulți, în terapie cognitiv-comportamentală. Mergem în ritmul tău — fără grabă, fără judecată, cu instrumente care chiar funcționează.</p>
+        <div class="hero-cta">
+          <a href="/contact" class="btn">
+            <Icon name="calendar" width={17} height={17} />
+            Programează o ședință
+          </a>
+          <a href="/servicii" class="btn btn-ghost">Vezi serviciile</a>
+        </div>
+        <div class="hero-meta">
+          <span><i class="dot"></i> Anxietate &amp; stres</span>
+          <span><i class="dot"></i> Depresie</span>
+          <span><i class="dot"></i> Ședințe online</span>
+        </div>
+      </div>
+      <div class="portrait reveal">
+        <div class="portrait-img">[ fotografie portret — de înlocuit ]</div>
+        <div class="badge-float">
+          <span class="bi"><Icon name="cap" width={20} height={20} /></span>
+          <div>
+            <strong>Formare CBT</strong>
+            <small>Master, Univ. Babeș-Bolyai · psiholog clinician sub supervizare</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- DESPRE (rezumat) -->
+  <section class="sec" id="despre">
+    <div class="wrap about-grid">
+      <div class="about-photo reveal">[ fotografie — de înlocuit ]</div>
+      <div class="reveal">
+        <span class="eyebrow">Despre mine</span>
+        <h2>Bună, sunt Roxana.</h2>
+        <p>Sunt psiholog clinician (sub supervizare) și psihoterapeut format în terapie cognitiv-comportamentală (CBT), cu master absolvit la Universitatea Babeș-Bolyai din Cluj-Napoca. Lucrez cu adulți, la cabinetul meu din Brașov și online.</p>
+        <p class="quote">Nu ofer rețete rapide. Îți ofer un spațiu în care să fii ascultat și ajutat să mergi acolo unde e nevoie — în ritmul tău.</p>
+        <p>Cred că schimbarea apare dintr-o relație de încredere și dintr-un demers personalizat, în care fiecare pas contează.</p>
+        <a href="/despre" class="btn btn-ghost" style="margin-top:8px">Mai multe despre mine</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICII (rezumat) -->
+  <section class="sec sec-alt" id="servicii">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Servicii</span>
+        <h2>Cum te pot ajuta</h2>
+        <p>Servicii de psihologie și psihoterapie pentru adulți, la cabinet în Brașov și online.</p>
+      </div>
+      <div class="cards cards-4">
+        {SERVICES.map((s) => (
+          <a class="card reveal" href={`/servicii/${s.slug}`}>
+            <div class="ic"><Icon name={serviceIcons[s.slug]} width={26} height={26} /></div>
+            <h3>{s.title}</h3>
+            <p>{s.short}</p>
+            <span class="card-link">Detalii <Icon name="arrow" width={15} height={15} /></span>
+          </a>
+        ))}
+      </div>
+      <div class="sec-cta reveal">
+        <a href="/servicii" class="btn btn-ghost">Toate serviciile</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUM LUCREZ -->
+  <section class="sec" id="cum-lucrez">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Cum lucrez</span>
+        <h2>Cum decurge un proces de terapie</h2>
+        <p>Fără mister și fără presiune. Iată la ce să te aștepți, de la primul contact până la finalul colaborării.</p>
+      </div>
+      <div class="steps">
+        {steps.map((s) => (
+          <div class="step reveal">
+            <div class="num">{s.n}</div>
+            <h4>{s.t}</h4>
+            <p>{s.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOG (recente) -->
+  {posts.length > 0 && (
+    <section class="sec sec-alt">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="eyebrow">Blog</span>
+          <h2>Articole recente</h2>
+          <p>Resurse despre anxietate, depresie și terapia cognitiv-comportamentală — scrise pe înțelesul tuturor.</p>
+        </div>
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <a class="post-card reveal" href={`/blog/${post.id}`}>
+              <div class="post-body">
+                <span class="post-cat">{post.data.category}</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="post-meta">
+                  <span>{formatDate(post.data.publishDate)}</span>
+                  <i class="dot-sep"></i>
+                  <span>{readingTime(post.body ?? '')} min citire</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+        <div class="sec-cta reveal">
+          <a href="/blog" class="btn btn-ghost">Toate articolele</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ scurt -->
+  <section class="sec" id="intrebari">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Întrebări frecvente</span>
+        <h2>Bine de știut înainte de prima ședință</h2>
+      </div>
+      <Faq items={faqItems} />
+      <div class="sec-cta reveal">
+        <a href="/contact" class="btn">
+          <Icon name="calendar" width={17} height={17} />
+          Programează o ședință
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

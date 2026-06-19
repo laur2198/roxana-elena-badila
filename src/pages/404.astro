@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+<Base title="Pagina nu a fost găsită (404)" description="Pagina căutată nu există." noindex={true} canonicalPath="/404">
+  <section class="sec" style="text-align:center;padding:120px 0">
+    <div class="wrap">
+      <span class="eyebrow" style="margin-left:auto;margin-right:auto">Eroare 404</span>
+      <h1 style="font-size:3rem;margin-bottom:16px">Pagina nu a fost găsită</h1>
+      <p style="color:var(--ink-soft);font-size:1.1rem;max-width:34em;margin:0 auto 32px">
+        Se pare că pagina pe care o cauți nu există sau a fost mutată. Hai înapoi la pagini sigure.
+      </p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a href="/" class="btn"><Icon name="arrow" width={17} height={17} /> Acasă</a>
+        <a href="/contact" class="btn btn-ghost">Contact</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Icon from '../components/Icon.astro';
+import { CONTACT } from '../consts';
+import { breadcrumbSchema } from '../lib/schema';
+
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Contact', path: '/contact' },
+];
+---
+<Base
+  title="Contact — programare psiholog Brașov"
+  description="Programează o ședință de psihoterapie la cabinet în Brașov sau online. Scrie-mi prin formular, e-mail sau WhatsApp."
+  canonicalPath="/contact"
+  extraSchema={[breadcrumbSchema(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="sec" style="padding-top:40px">
+    <div class="wrap contact-grid">
+      <div class="contact-info reveal">
+        <span class="eyebrow">Contact</span>
+        <h1 style="font-size:2.4rem;margin-bottom:16px">Hai să vorbim</h1>
+        <p>Poți începe cu o întrebare, cu nevoia de a clarifica ceva sau direct cu o programare. Îți răspund cât pot de repede.</p>
+        <ul class="ci-list">
+          <li>
+            <span class="ci-ic"><Icon name="phone" width={22} height={22} /></span>
+            <div><div class="lbl">Telefon</div><a href={CONTACT.phoneHref} class="placeholder">{CONTACT.phone}</a></div>
+          </li>
+          <li>
+            <span class="ci-ic"><Icon name="whatsapp" width={22} height={22} /></span>
+            <div><div class="lbl">WhatsApp</div><a href={CONTACT.whatsappHref} target="_blank" rel="noopener" class="placeholder">Scrie-mi pe WhatsApp</a></div>
+          </li>
+          <li>
+            <span class="ci-ic"><Icon name="mail" width={22} height={22} /></span>
+            <div><div class="lbl">E-mail</div><a href={CONTACT.emailHref} class="placeholder">{CONTACT.email}</a></div>
+          </li>
+          <li>
+            <span class="ci-ic"><Icon name="pin" width={22} height={22} /></span>
+            <div><div class="lbl">Cabinet</div><span class="val placeholder">{CONTACT.addressStreet}, {CONTACT.addressLocality}</span></div>
+          </li>
+          <li>
+            <span class="ci-ic"><Icon name="clock" width={22} height={22} /></span>
+            <div><div class="lbl">Program</div><span class="val">{CONTACT.openingHours}</span></div>
+          </li>
+        </ul>
+      </div>
+
+      <form class="form reveal" id="contactForm">
+        <!-- Web3Forms: înlocuiește access_key cu cheia ta de pe https://web3forms.com (gratuit). -->
+        <input type="hidden" name="access_key" value="[[WEB3FORMS_ACCESS_KEY]]" />
+        <input type="hidden" name="subject" value="Mesaj nou de pe site — roxanabadila.ro" />
+        <input type="hidden" name="from_name" value="Site Roxana Elena Bădilă" />
+        <!-- honeypot anti-spam -->
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <div class="field">
+          <label for="nume">Nume</label>
+          <input type="text" id="nume" name="nume" required placeholder="Numele tău" />
+        </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required placeholder="adresa ta de e-mail" />
+        </div>
+        <div class="field">
+          <label for="tel">Telefon (opțional)</label>
+          <input type="tel" id="tel" name="tel" placeholder="numărul tău de telefon" />
+        </div>
+        <div class="field">
+          <label for="mesaj">Mesaj</label>
+          <textarea id="mesaj" name="mesaj" required placeholder="Spune-mi pe scurt cu ce te-aș putea ajuta."></textarea>
+        </div>
+        <button type="submit" class="btn">
+          <Icon name="send" width={17} height={17} />
+          Trimite mesajul
+        </button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        <p class="privacy">Datele tale sunt folosite doar pentru a-ți răspunde la mesaj.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- HARTĂ (lazy-load) -->
+  <section class="sec sec-alt" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head left reveal">
+        <span class="eyebrow">Cabinet</span>
+        <h2>Unde mă găsești</h2>
+        <p class="placeholder">Adresă exactă cabinet — de completat.</p>
+      </div>
+      <div class="map-embed reveal">
+        <iframe
+          src={CONTACT.mapsEmbedUrl}
+          title="Locația cabinetului pe hartă"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    const status = document.getElementById('formStatus');
+    if (form && status) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.className = 'form-status';
+        status.textContent = 'Se trimite…';
+        status.classList.add('ok');
+        try {
+          const data = new FormData(form);
+          const res = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: data,
+          });
+          const json = await res.json();
+          if (res.ok && json.success) {
+            status.className = 'form-status ok';
+            status.textContent = 'Mulțumesc! Mesajul a fost trimis. Îți răspund cât de curând.';
+            form.reset();
+          } else {
+            throw new Error(json.message || 'Eroare la trimitere.');
+          }
+        } catch (err) {
+          status.className = 'form-status err';
+          status.textContent =
+            'Nu am putut trimite mesajul. Te rog scrie-mi direct pe e-mail sau WhatsApp.';
+        }
+      });
+    }
+  </script>
+</Base>

@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap (generat automat de @astrojs/sitemap)
+Sitemap: https://roxanabadila.ro/sitemap-index.xml

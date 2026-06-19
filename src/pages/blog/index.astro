@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+import { formatDate, readingTime } from '../../lib/reading-time';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Blog', path: '/blog' },
+];
+---
+<Base
+  title="Blog — anxietate, depresie și terapie CBT"
+  description="Articole despre anxietate, atacuri de panică, depresie, stres și terapia cognitiv-comportamentală (CBT), scrise de psihoterapeut. Resurse pe înțelesul tuturor."
+  canonicalPath="/blog"
+  extraSchema={[breadcrumbSchema(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">Blog</span>
+      <h1 class="reveal">Resurse despre sănătatea ta emoțională</h1>
+      <p class="lead reveal">Articole despre anxietate, depresie, stres și terapia cognitiv-comportamentală — informații clare, prudente și utile.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:40px">
+    <div class="wrap">
+      {posts.length === 0 ? (
+        <p style="text-align:center;color:var(--ink-soft)">În curând apar primele articole. Revino curând!</p>
+      ) : (
+        <div class="blog-grid">
+          {posts.map((post) => (
+            <a class="post-card reveal" href={`/blog/${post.id}`}>
+              <div class="post-body">
+                <span class="post-cat">{post.data.category}</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+                <div class="post-meta">
+                  <span>{formatDate(post.data.publishDate)}</span>
+                  <i class="dot-sep"></i>
+                  <span>{readingTime(post.body ?? '')} min citire</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,54 @@
+---
+import { SITE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Cale relativă sau absolută a paginii pentru canonical. Implicit: URL-ul curent. */
+  canonicalPath?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description = SITE.defaultDescription,
+  canonicalPath,
+  image = SITE.defaultOgImage,
+  type = 'website',
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+// Title: pagina + brand; ≤ 60 caractere recomandat (truncăm doar logic, nu forțat)
+const fullTitle = title ? `${title} · ${SITE.shortName}` : SITE.defaultTitle;
+
+const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, SITE.url);
+const ogImageURL = new URL(image, SITE.url);
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL.href} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<meta name="author" content={SITE.name} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL.href} />
+<meta property="og:image" content={ogImageURL.href} />
+<meta property="og:locale" content={SITE.locale} />
+<meta property="og:site_name" content={SITE.name} />
+{type === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+{type === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageURL.href} />

@@ -1,0 +1,96 @@
+---
+import '../styles/global.css';
+import { SITE } from '../consts';
+import SEO from '../components/SEO.astro';
+import JsonLd from '../components/JsonLd.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { graph, websiteSchema, organizationSchema, psychologistSchema } from '../lib/schema';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalPath?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  /** Schema JSON-LD suplimentară, specifică paginii (array de noduri). */
+  extraSchema?: Record<string, any>[];
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  image,
+  type = 'website',
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  extraSchema = [],
+} = Astro.props;
+
+// Schema globală (toate paginile) + cea specifică paginii, într-un singur graf.
+const globalSchema = graph(websiteSchema(), organizationSchema(), psychologistSchema(), ...extraSchema);
+---
+<!DOCTYPE html>
+<html lang={SITE.lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="theme-color" content="#5B7468" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <SEO
+    title={title}
+    description={description}
+    canonicalPath={canonicalPath}
+    image={image}
+    type={type}
+    noindex={noindex}
+    publishedTime={publishedTime}
+    modifiedTime={modifiedTime}
+  />
+  <JsonLd schema={globalSchema} />
+  <slot name="head" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Sari la conținut</a>
+  <Header />
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+
+  <script>
+    // Reveal la scroll, cu respect pentru prefers-reduced-motion.
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const els = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      els.forEach((el) => io.observe(el));
+    }
+  </script>
+</body>
+</html>

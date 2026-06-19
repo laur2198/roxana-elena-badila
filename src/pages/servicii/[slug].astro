@@ -1,0 +1,114 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import Faq from '../../components/Faq.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import { SERVICES_CONTENT } from '../../lib/services-content';
+import { serviceSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return Object.values(SERVICES_CONTENT).map((s) => ({
+    params: { slug: s.slug },
+    props: { service: s },
+  }));
+}
+
+const { service } = Astro.props;
+const url = `/servicii/${service.slug}`;
+
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Servicii', path: '/servicii' },
+  { name: service.h1, path: url },
+];
+
+const extraSchema = [
+  serviceSchema({
+    name: service.h1,
+    description: service.metaDescription,
+    serviceType: service.serviceType,
+    url,
+  }),
+  faqSchema(service.faq),
+  breadcrumbSchema(crumbs),
+];
+---
+<Base
+  title={service.metaTitle}
+  description={service.metaDescription}
+  canonicalPath={url}
+  extraSchema={extraSchema}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal"><Icon name={service.icon} width={14} height={14} /> Serviciu</span>
+      <h1 class="reveal">{service.h1}</h1>
+      <p class="lead reveal">{service.lead}</p>
+      <div class="reveal" style="margin-top:24px">
+        <a href="/contact" class="btn">
+          <Icon name="calendar" width={17} height={17} />
+          Programează o ședință
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:48px">
+    <div class="wrap">
+      <div class="prose reveal" style="margin:0 0 8px">
+        {service.intro.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- PENTRU CINE -->
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head left reveal">
+        <span class="eyebrow">Pentru cine</span>
+        <h2>Acest serviciu te poate ajuta dacă…</h2>
+      </div>
+      <div class="prose reveal" style="margin:0">
+        <ul>
+          {service.forWho.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUM DECURGE -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Cum decurge</span>
+        <h2>Pașii colaborării</h2>
+      </div>
+      <div class="steps" style={service.how.length === 3 ? 'grid-template-columns:repeat(3,1fr)' : ''}>
+        {service.how.map((s, i) => (
+          <div class="step reveal">
+            <div class="num">{String(i + 1).padStart(2, '0')}</div>
+            <h4>{s.t}</h4>
+            <p>{s.d}</p>
+          </div>
+        ))}
+      </div>
+      <p class="cred-note reveal" style="max-width:46em">{service.onlineVsOffice}</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Întrebări frecvente</span>
+        <h2>Despre {service.serviceType.toLowerCase()}</h2>
+      </div>
+      <Faq items={service.faq} />
+    </div>
+  </section>
+
+  <ContactCta />
+</Base>

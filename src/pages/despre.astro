@@ -1,0 +1,93 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Icon from '../components/Icon.astro';
+import ContactCta from '../components/ContactCta.astro';
+import { CREDENTIALS } from '../consts';
+import { personSchema, breadcrumbSchema } from '../lib/schema';
+
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Despre mine', path: '/despre' },
+];
+
+const creds = [
+  { icon: 'cap', title: 'Master în psihologie', sub: CREDENTIALS.alumniOf },
+  { icon: 'award', title: 'Psiholog clinician', sub: 'sub supervizare' },
+  { icon: 'star', title: 'Psihoterapeut CBT', sub: 'formare în terapie cognitiv-comportamentală' },
+  { icon: 'shield', title: 'Cod Registrul psihologilor', sub: CREDENTIALS.copsiCode, placeholder: true },
+];
+
+const extraSchema = [
+  personSchema(),
+  breadcrumbSchema(crumbs),
+];
+---
+<Base
+  title="Despre mine — psiholog & psihoterapeut CBT în Brașov"
+  description="Roxana Elena Bădilă — psiholog clinician (sub supervizare) și psihoterapeut CBT, master la Universitatea Babeș-Bolyai. Despre formare, abordare și valori."
+  canonicalPath="/despre"
+  extraSchema={extraSchema}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="sec" style="padding-top:40px">
+    <div class="wrap about-grid">
+      <div class="about-photo reveal">[ fotografie — de înlocuit ]</div>
+      <div class="reveal">
+        <span class="eyebrow">Despre mine</span>
+        <h1 style="font-size:2.6rem;margin-bottom:18px">Bună, sunt Roxana.</h1>
+        <p>Sunt psiholog clinician (sub supervizare) și psihoterapeut format în terapie cognitiv-comportamentală (CBT), cu master absolvit la Universitatea Babeș-Bolyai din Cluj-Napoca. Lucrez cu adulți, la cabinetul meu din Brașov și online.</p>
+        <p>CBT este o abordare riguroasă și validată științific: împreună înțelegem legătura dintre gânduri, emoții și comportamente și construim, pas cu pas, instrumente concrete pe care le poți folosi și în afara ședințelor.</p>
+        <p class="quote">Nu ofer rețete rapide. Îți ofer un spațiu în care să fii ascultat și ajutat să mergi acolo unde e nevoie — în ritmul tău.</p>
+        <p>Cred că schimbarea apare dintr-o relație de încredere și dintr-un demers personalizat, în care fiecare pas contează.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABORDARE -->
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head left reveal">
+        <span class="eyebrow">Abordarea mea</span>
+        <h2>Ce este terapia cognitiv-comportamentală</h2>
+      </div>
+      <div class="prose reveal" style="margin:0">
+        <p>Terapia cognitiv-comportamentală (CBT) este una dintre cele mai studiate forme de psihoterapie, cu eficacitate demonstrată pentru anxietate, depresie, atacuri de panică, stres și multe alte dificultăți.</p>
+        <p>Pornim de la o idee simplă: modul în care interpretăm situațiile ne influențează emoțiile și comportamentele. Lucrând împreună cu aceste tipare, putem schimba felul în care ne simțim și reacționăm. Practic, în ședințe:</p>
+        <ul>
+          <li>înțelegem ce te aduce în terapie și ce ți-ai dori să fie diferit;</li>
+          <li>identificăm gândurile, emoțiile și comportamentele care întrețin dificultatea;</li>
+          <li>exersăm instrumente concrete, adaptate ție, pe care le poți folosi și între ședințe;</li>
+          <li>urmărim progresul și ajustăm planul pe parcurs.</li>
+        </ul>
+        <p>Lucrez doar cu adulți, individual, la cabinet în Brașov sau online.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACREDITARI -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Formare &amp; acreditări</span>
+        <h2>Pregătire profesională</h2>
+        <p>Practica mea este construită pe formare riguroasă și pe respectarea standardelor profesiei.</p>
+      </div>
+      <div class="cred-grid">
+        {creds.map((c) => (
+          <div class="cred reveal">
+            <span class="ci"><Icon name={c.icon} width={21} height={21} /></span>
+            <div>
+              <strong>{c.title}</strong>
+              {c.placeholder ? <span class="placeholder">de completat (COPSI)</span> : <span>{c.sub}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p class="cred-note">Membră a {CREDENTIALS.copsiMembership}. <span class="placeholder">Numărul atestatului — de completat.</span></p>
+    </div>
+  </section>
+
+  <ContactCta alt={true} title="Crezi că aș putea fi psihologul potrivit pentru tine?" text="Cel mai bun mod de a afla este o primă întâlnire. Putem clarifica împreună dacă pot fi de ajutor." />
+</Base>

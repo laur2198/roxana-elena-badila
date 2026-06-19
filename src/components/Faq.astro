@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  items: { q: string; a: string }[];
+  /** Deschide primul element implicit. */
+  openFirst?: boolean;
+}
+const { items, openFirst = true } = Astro.props;
+---
+<div class="faq">
+  {items.map((item, i) => (
+    <details class="reveal" open={openFirst && i === 0}>
+      <summary>
+        {item.q}
+        <Icon name="chevron" class="chev" width={22} height={22} />
+      </summary>
+      <div class="ans" set:html={item.a} />
+    </details>
+  ))}
+</div>

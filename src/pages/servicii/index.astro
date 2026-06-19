@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import ContactCta from '../../components/ContactCta.astro';
+import { SERVICES } from '../../consts';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Servicii', path: '/servicii' },
+];
+
+const serviceIcons: Record<string, string> = {
+  'psihoterapie-individuala': 'user',
+  'evaluare-psihologica': 'clipboard',
+  'consiliere-psihologica': 'message',
+  'sedinte-online': 'monitor',
+};
+---
+<Base
+  title="Servicii de psihologie și psihoterapie în Brașov"
+  description="Servicii de psihologie pentru adulți în Brașov: psihoterapie individuală (CBT), evaluare psihologică clinică, consiliere psihologică și ședințe online."
+  canonicalPath="/servicii"
+  extraSchema={[breadcrumbSchema(crumbs)]}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow reveal">Servicii</span>
+      <h1 class="reveal">Cum te pot ajuta</h1>
+      <p class="lead reveal">Servicii de psihologie și psihoterapie pentru adulți, la cabinet în Brașov și online. Alege serviciul potrivit pentru tine — sau scrie-mi și clarificăm împreună.</p>
+    </div>
+  </section>
+
+  <section class="sec" style="padding-top:40px">
+    <div class="wrap">
+      <div class="cards cards-2">
+        {SERVICES.map((s) => (
+          <a class="card reveal" href={`/servicii/${s.slug}`}>
+            <div class="ic"><Icon name={serviceIcons[s.slug]} width={26} height={26} /></div>
+            <h3>{s.title}</h3>
+            <p>{s.short}</p>
+            <span class="card-link">Detalii <Icon name="arrow" width={15} height={15} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactCta alt={true} />
+</Base>
