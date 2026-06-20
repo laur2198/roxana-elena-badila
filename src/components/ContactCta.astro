@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { withBase } from '../lib/url';
 
 interface Props {
   title?: string;
@@ -20,7 +21,7 @@ const {
       <p>{text}</p>
     </div>
     <div class="sec-cta reveal">
-      <a href="/contact" class="btn">
+      <a href={withBase('/contact')} class="btn">
         <Icon name="calendar" width={17} height={17} />
         Programează o ședință
       </a>

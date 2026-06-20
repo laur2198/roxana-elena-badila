@@ -6,8 +6,9 @@
  */
 
 export const SITE = {
-  /** [[DOMENIU]] — schimbă și în astro.config.mjs (SITE_URL). */
-  url: 'https://roxanabadila.ro',
+  /** Originul site-ului (fără cale). Pentru project site = https://USER.github.io.
+   *  Calea de bază (/roxana-elena-badila) se adaugă prin withBase()/BASE_URL. */
+  url: 'https://laur2198.github.io',
   name: 'Roxana Elena Bădilă',
   shortName: 'Roxana Elena Bădilă',
   subtitle: 'Psiholog · Psihoterapeut CBT',

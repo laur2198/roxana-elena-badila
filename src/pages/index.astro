@@ -5,6 +5,7 @@ import Icon from '../components/Icon.astro';
 import Faq from '../components/Faq.astro';
 import { SITE, SERVICES } from '../consts';
 import { formatDate, readingTime } from '../lib/reading-time';
+import { withBase } from '../lib/url';
 
 // Cele mai recente 3 articole publicate.
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
@@ -44,11 +45,11 @@ const faqItems = [
         <h1>Un spațiu sigur, în care <em>nespusul</em> își găsește numele.</h1>
         <p class="lead">Psihoterapie individuală pentru adulți, în terapie cognitiv-comportamentală. Mergem în ritmul tău — fără grabă, fără judecată, cu instrumente care chiar funcționează.</p>
         <div class="hero-cta">
-          <a href="/contact" class="btn">
+          <a href={withBase('/contact')} class="btn">
             <Icon name="calendar" width={17} height={17} />
             Programează o ședință
           </a>
-          <a href="/servicii" class="btn btn-ghost">Vezi serviciile</a>
+          <a href={withBase('/servicii')} class="btn btn-ghost">Vezi serviciile</a>
         </div>
         <div class="hero-meta">
           <span><i class="dot"></i> Anxietate &amp; stres</span>
@@ -79,7 +80,7 @@ const faqItems = [
         <p>Sunt psiholog clinician (sub supervizare) și psihoterapeut format în terapie cognitiv-comportamentală (CBT), cu master absolvit la Universitatea Babeș-Bolyai din Cluj-Napoca. Lucrez cu adulți, la cabinetul meu din Brașov și online.</p>
         <p class="quote">Nu ofer rețete rapide. Îți ofer un spațiu în care să fii ascultat și ajutat să mergi acolo unde e nevoie — în ritmul tău.</p>
         <p>Cred că schimbarea apare dintr-o relație de încredere și dintr-un demers personalizat, în care fiecare pas contează.</p>
-        <a href="/despre" class="btn btn-ghost" style="margin-top:8px">Mai multe despre mine</a>
+        <a href={withBase('/despre')} class="btn btn-ghost" style="margin-top:8px">Mai multe despre mine</a>
       </div>
     </div>
   </section>
@@ -94,7 +95,7 @@ const faqItems = [
       </div>
       <div class="cards cards-4">
         {SERVICES.map((s) => (
-          <a class="card reveal" href={`/servicii/${s.slug}`}>
+          <a class="card reveal" href={withBase(`/servicii/${s.slug}`)}>
             <div class="ic"><Icon name={serviceIcons[s.slug]} width={26} height={26} /></div>
             <h3>{s.title}</h3>
             <p>{s.short}</p>
@@ -103,7 +104,7 @@ const faqItems = [
         ))}
       </div>
       <div class="sec-cta reveal">
-        <a href="/servicii" class="btn btn-ghost">Toate serviciile</a>
+        <a href={withBase('/servicii')} class="btn btn-ghost">Toate serviciile</a>
       </div>
     </div>
   </section>
@@ -139,7 +140,7 @@ const faqItems = [
         </div>
         <div class="blog-grid">
           {posts.map((post) => (
-            <a class="post-card reveal" href={`/blog/${post.id}`}>
+            <a class="post-card reveal" href={withBase(`/blog/${post.id}`)}>
               <div class="post-body">
                 <span class="post-cat">{post.data.category}</span>
                 <h3>{post.data.title}</h3>
@@ -154,7 +155,7 @@ const faqItems = [
           ))}
         </div>
         <div class="sec-cta reveal">
-          <a href="/blog" class="btn btn-ghost">Toate articolele</a>
+          <a href={withBase('/blog')} class="btn btn-ghost">Toate articolele</a>
         </div>
       </div>
     </section>
@@ -169,7 +170,7 @@ const faqItems = [
       </div>
       <Faq items={faqItems} />
       <div class="sec-cta reveal">
-        <a href="/contact" class="btn">
+        <a href={withBase('/contact')} class="btn">
           <Icon name="calendar" width={17} height={17} />
           Programează o ședință
         </a>

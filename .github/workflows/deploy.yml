@@ -1,0 +1,43 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Rulează la fiecare push în main
+  push:
+    branches: [main]
+  # Permite rulare manuală din tab-ul Actions
+  workflow_dispatch:
+
+# Permisiuni necesare pentru deploy pe Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite o singură rulare concurentă; nu anula un deploy în curs
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build with Astro
+        uses: withastro/action@v3
+        # Proiectul este în rădăcina repo-ului, deci nu e nevoie de `path:`.
+        # Dacă muți proiectul într-un subfolder, decomentează și ajustează:
+        # with:
+        #   path: .
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

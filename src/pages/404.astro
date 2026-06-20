@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/url';
 ---
 <Base title="Pagina nu a fost găsită (404)" description="Pagina căutată nu există." noindex={true} canonicalPath="/404">
   <section class="sec" style="text-align:center;padding:120px 0">
@@ -11,8 +12,8 @@ import Icon from '../components/Icon.astro';
         Se pare că pagina pe care o cauți nu există sau a fost mutată. Hai înapoi la pagini sigure.
       </p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-        <a href="/" class="btn"><Icon name="arrow" width={17} height={17} /> Acasă</a>
-        <a href="/contact" class="btn btn-ghost">Contact</a>
+        <a href={withBase('/')} class="btn"><Icon name="arrow" width={17} height={17} /> Acasă</a>
+        <a href={withBase('/contact')} class="btn btn-ghost">Contact</a>
       </div>
     </div>
   </section>

@@ -1,5 +1,6 @@
 ---
 import { SITE, CONTACT, CREDENTIALS, SERVICES } from '../consts';
+import { withBase } from '../lib/url';
 const year = new Date().getFullYear();
 ---
 <footer class="site-footer">
@@ -11,14 +12,14 @@ const year = new Date().getFullYear();
       </div>
       <div class="foot-col">
         <h5>Navigare</h5>
-        <a href="/despre">Despre mine</a>
-        <a href="/servicii">Servicii</a>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href={withBase('/despre')}>Despre mine</a>
+        <a href={withBase('/servicii')}>Servicii</a>
+        <a href={withBase('/blog')}>Blog</a>
+        <a href={withBase('/contact')}>Contact</a>
       </div>
       <div class="foot-col">
         <h5>Servicii</h5>
-        {SERVICES.map((s) => <a href={`/servicii/${s.slug}`}>{s.navLabel}</a>)}
+        {SERVICES.map((s) => <a href={withBase(`/servicii/${s.slug}`)}>{s.navLabel}</a>)}
       </div>
       <div class="foot-col">
         <h5>Contact</h5>

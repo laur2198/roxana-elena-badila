@@ -13,21 +13,21 @@
 - Modalități: ședințe la cabinet (Brașov) și online
 
 ## Servicii
-- Psihoterapie individuală pentru adulți (CBT): https://roxanabadila.ro/servicii/psihoterapie-individuala
-- Evaluare psihologică clinică: https://roxanabadila.ro/servicii/evaluare-psihologica
-- Consiliere psihologică: https://roxanabadila.ro/servicii/consiliere-psihologica
-- Ședințe online: https://roxanabadila.ro/servicii/sedinte-online
+- Psihoterapie individuală pentru adulți (CBT): https://laur2198.github.io/roxana-elena-badila/servicii/psihoterapie-individuala
+- Evaluare psihologică clinică: https://laur2198.github.io/roxana-elena-badila/servicii/evaluare-psihologica
+- Consiliere psihologică: https://laur2198.github.io/roxana-elena-badila/servicii/consiliere-psihologica
+- Ședințe online: https://laur2198.github.io/roxana-elena-badila/servicii/sedinte-online
 
 ## Arii de lucru
 Anxietate și atacuri de panică, depresie, stres și burnout, stimă de sine și relații,
 momente dificile de viață, reglare emoțională.
 
 ## Pagini cheie
-- Acasă: https://roxanabadila.ro/
-- Despre mine: https://roxanabadila.ro/despre
-- Servicii: https://roxanabadila.ro/servicii
-- Blog: https://roxanabadila.ro/blog
-- Contact: https://roxanabadila.ro/contact
+- Acasă: https://laur2198.github.io/roxana-elena-badila/
+- Despre mine: https://laur2198.github.io/roxana-elena-badila/despre
+- Servicii: https://laur2198.github.io/roxana-elena-badila/servicii
+- Blog: https://laur2198.github.io/roxana-elena-badila/blog
+- Contact: https://laur2198.github.io/roxana-elena-badila/contact
 
 ## Contact
 - Telefon: [[DE COMPLETAT]]

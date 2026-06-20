@@ -1,5 +1,6 @@
 ---
 import { SITE } from '../consts';
+import { withBase } from '../lib/url';
 
 interface Props {
   title?: string;
@@ -27,8 +28,10 @@ const {
 // Title: pagina + brand; ≤ 60 caractere recomandat (truncăm doar logic, nu forțat)
 const fullTitle = title ? `${title} · ${SITE.shortName}` : SITE.defaultTitle;
 
-const canonicalURL = new URL(canonicalPath ?? Astro.url.pathname, SITE.url);
-const ogImageURL = new URL(image, SITE.url);
+// canonicalPath e o cale „logică" (ex. /despre) — îi adăugăm base.
+// Fallback: Astro.url.pathname include deja base la build.
+const canonicalURL = new URL(canonicalPath ? withBase(canonicalPath) : Astro.url.pathname, SITE.url);
+const ogImageURL = new URL(withBase(image), SITE.url);
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />

@@ -8,6 +8,7 @@ import Faq from '../../components/Faq.astro';
 import { SITE } from '../../consts';
 import { formatDate, readingTime } from '../../lib/reading-time';
 import { articleSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+import { withBase } from '../../lib/url';
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -83,7 +84,7 @@ const initials = post.data.author.split(' ').map((w) => w[0]).slice(0, 2).join('
         </div>
       </div>
       {post.data.cover && (
-        <img class="article-cover reveal" src={post.data.cover} alt={post.data.title} width="900" height="506" loading="eager" />
+        <img class="article-cover reveal" src={withBase(post.data.cover)} alt={post.data.title} width="900" height="506" loading="eager" />
       )}
     </header>
 
@@ -119,7 +120,7 @@ const initials = post.data.author.split(' ').map((w) => w[0]).slice(0, 2).join('
         <div class="article-cta reveal">
           <h3>Ai nevoie de sprijin?</h3>
           <p>Dacă te regăsești în cele de mai sus, putem lucra împreună. Programează o ședință la cabinet în Brașov sau online.</p>
-          <a href="/contact" class="btn">
+          <a href={withBase('/contact')} class="btn">
             <Icon name="calendar" width={17} height={17} />
             Programează o ședință
           </a>
@@ -136,7 +137,7 @@ const initials = post.data.author.split(' ').map((w) => w[0]).slice(0, 2).join('
           </div>
           <div class="blog-grid">
             {related.map((p) => (
-              <a class="post-card reveal" href={`/blog/${p.id}`}>
+              <a class="post-card reveal" href={withBase(`/blog/${p.id}`)}>
                 <div class="post-body">
                   <span class="post-cat">{p.data.category}</span>
                   <h3>{p.data.title}</h3>

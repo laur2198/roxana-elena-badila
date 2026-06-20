@@ -5,6 +5,7 @@ import Icon from '../../components/Icon.astro';
 import ContactCta from '../../components/ContactCta.astro';
 import { SERVICES } from '../../consts';
 import { breadcrumbSchema } from '../../lib/schema';
+import { withBase } from '../../lib/url';
 
 const crumbs = [
   { name: 'Acasă', path: '/' },
@@ -38,7 +39,7 @@ const serviceIcons: Record<string, string> = {
     <div class="wrap">
       <div class="cards cards-2">
         {SERVICES.map((s) => (
-          <a class="card reveal" href={`/servicii/${s.slug}`}>
+          <a class="card reveal" href={withBase(`/servicii/${s.slug}`)}>
             <div class="ic"><Icon name={serviceIcons[s.slug]} width={26} height={26} /></div>
             <h3>{s.title}</h3>
             <p>{s.short}</p>

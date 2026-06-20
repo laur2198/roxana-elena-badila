@@ -3,13 +3,18 @@
  * Validează cu Rich Results Test după deploy.
  */
 import { SITE, CONTACT, CREDENTIALS, SAME_AS } from '../consts';
+import { withBase } from './url';
 
-const abs = (path: string) => new URL(path, SITE.url).href;
+/** URL absolut, ținând cont de `base` (ex. https://laur2198.github.io/roxana-elena-badila/despre). */
+const abs = (path: string) => new URL(withBase(path), SITE.url).href;
 
-const ORG_ID = `${SITE.url}/#organization`;
-const WEBSITE_ID = `${SITE.url}/#website`;
-const PERSON_ID = `${SITE.url}/#roxana`;
-const BUSINESS_ID = `${SITE.url}/#psychologist`;
+/** Rădăcina site-ului cu base (ex. https://laur2198.github.io/roxana-elena-badila/). */
+const SITE_ROOT = abs('/');
+
+const ORG_ID = `${SITE_ROOT}#organization`;
+const WEBSITE_ID = `${SITE_ROOT}#website`;
+const PERSON_ID = `${SITE_ROOT}#roxana`;
+const BUSINESS_ID = `${SITE_ROOT}#psychologist`;
 
 /** PostalAddress reutilizat. */
 const postalAddress = () => ({
@@ -26,7 +31,7 @@ export function websiteSchema() {
   return {
     '@type': 'WebSite',
     '@id': WEBSITE_ID,
-    url: SITE.url,
+    url: SITE_ROOT,
     name: SITE.name,
     inLanguage: 'ro-RO',
     publisher: { '@id': ORG_ID },
@@ -41,7 +46,7 @@ export function psychologistSchema() {
     name: SITE.name,
     alternateName: 'Cabinet psihologic Roxana Elena Bădilă',
     description: SITE.defaultDescription,
-    url: SITE.url,
+    url: SITE_ROOT,
     image: abs(SITE.defaultOgImage),
     telephone: CONTACT.phone,
     email: CONTACT.email,
@@ -73,7 +78,7 @@ export function organizationSchema() {
     '@type': 'Organization',
     '@id': ORG_ID,
     name: SITE.name,
-    url: SITE.url,
+    url: SITE_ROOT,
     logo: abs('/favicon.svg'),
     sameAs: SAME_AS,
   };

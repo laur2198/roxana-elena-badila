@@ -6,6 +6,7 @@ import Faq from '../../components/Faq.astro';
 import ContactCta from '../../components/ContactCta.astro';
 import { SERVICES_CONTENT } from '../../lib/services-content';
 import { serviceSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+import { withBase } from '../../lib/url';
 
 export function getStaticPaths() {
   return Object.values(SERVICES_CONTENT).map((s) => ({
@@ -48,7 +49,7 @@ const extraSchema = [
       <h1 class="reveal">{service.h1}</h1>
       <p class="lead reveal">{service.lead}</p>
       <div class="reveal" style="margin-top:24px">
-        <a href="/contact" class="btn">
+        <a href={withBase('/contact')} class="btn">
           <Icon name="calendar" width={17} height={17} />
           Programează o ședință
         </a>
