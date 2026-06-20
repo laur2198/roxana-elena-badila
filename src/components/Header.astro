@@ -1,0 +1,54 @@
+---
+import { SITE, SERVICES } from '../consts';
+import Icon from './Icon.astro';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => path === href || (href !== '/' && path.startsWith(href));
+---
+<nav class="site-nav">
+  <div class="wrap nav-in">
+    <a href="/" class="brand">
+      {SITE.name}<span>{SITE.subtitle}</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Deschide meniul" aria-expanded="false" aria-controls="navLinks">
+      <Icon name="menu" width={26} height={26} />
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="/despre" class={isActive('/despre') ? 'active' : ''}>Despre mine</a>
+      <div class="nav-drop">
+        <a href="/servicii" class={`drop-toggle ${isActive('/servicii') ? 'active' : ''}`}>
+          Servicii
+          <Icon name="chevron" width={15} height={15} />
+        </a>
+        <div class="drop-menu">
+          <a href="/servicii">Toate serviciile</a>
+          {SERVICES.map((s) => (
+            <a href={`/servicii/${s.slug}`}>{s.navLabel}</a>
+          ))}
+        </div>
+      </div>
+      <a href="/blog" class={isActive('/blog') ? 'active' : ''}>Blog</a>
+      <a href="/contact" class="btn">
+        <Icon name="calendar" width={17} height={17} />
+        Programează o ședință
+      </a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  if (menuBtn && navLinks) {
+    menuBtn.addEventListener('click', () => {
+      const open = navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+    });
+    navLinks.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+</script>

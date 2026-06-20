@@ -1,0 +1,155 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Icon from '../../components/Icon.astro';
+import Faq from '../../components/Faq.astro';
+import { SITE } from '../../consts';
+import { formatDate, readingTime } from '../../lib/reading-time';
+import { articleSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const url = `/blog/${post.id}`;
+const published = post.data.publishDate;
+const updated = post.data.updatedDate ?? published;
+const minutes = readingTime(post.body ?? '');
+
+const crumbs = [
+  { name: 'Acasă', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: post.data.title, path: url },
+];
+
+// articole similare (aceeași categorie), max 2
+const related = (await getCollection('blog', ({ data }) => !data.draft))
+  .filter((p) => p.id !== post.id && p.data.category === post.data.category)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
+  .slice(0, 2);
+
+// cuprins din headingurile h2
+const toc = headings.filter((h) => h.depth === 2);
+
+const extraSchema = [
+  articleSchema({
+    title: post.data.title,
+    description: post.data.description,
+    url,
+    image: post.data.cover,
+    datePublished: published.toISOString(),
+    dateModified: updated.toISOString(),
+  }),
+  breadcrumbSchema(crumbs),
+  ...(post.data.faq ? [faqSchema(post.data.faq)] : []),
+];
+
+const initials = post.data.author.split(' ').map((w) => w[0]).slice(0, 2).join('');
+---
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  canonicalPath={url}
+  image={post.data.cover ?? SITE.defaultOgImage}
+  type="article"
+  publishedTime={published.toISOString()}
+  modifiedTime={updated.toISOString()}
+  extraSchema={extraSchema}
+>
+  <Breadcrumbs items={crumbs} />
+
+  <article>
+    <header class="article-head">
+      <div class="wrap-narrow">
+        <span class="eyebrow reveal">{post.data.category}</span>
+        <h1 class="reveal">{post.data.title}</h1>
+        <div class="meta-row reveal">
+          <span class="article-author">
+            <span class="av">{initials}</span>
+            <span>{post.data.author}</span>
+          </span>
+          <i class="dot-sep"></i>
+          <time datetime={published.toISOString()}>{formatDate(published)}</time>
+          <i class="dot-sep"></i>
+          <span>{minutes} min citire</span>
+        </div>
+      </div>
+      {post.data.cover && (
+        <img class="article-cover reveal" src={post.data.cover} alt={post.data.title} width="900" height="506" loading="eager" />
+      )}
+    </header>
+
+    <div class="sec" style="padding-top:40px">
+      <div class="wrap">
+        {toc.length > 1 && (
+          <nav class="toc reveal" aria-label="Cuprins">
+            <h2>Cuprins</h2>
+            <ol>
+              {toc.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ol>
+          </nav>
+        )}
+
+        <div class="prose">
+          <Content />
+        </div>
+
+        <div class="disclaimer">
+          <strong>Notă:</strong> Acest articol are caracter informativ și nu înlocuiește consultația de specialitate. Dacă te confrunți cu dificultăți, ia legătura cu un psiholog sau medic.
+        </div>
+
+        {post.data.faq && post.data.faq.length > 0 && (
+          <div style="margin-top:48px">
+            <div class="sec-head left reveal" style="margin-bottom:24px">
+              <span class="eyebrow">Întrebări frecvente</span>
+              <h2 style="font-size:1.9rem">Pe scurt</h2>
+            </div>
+            <Faq items={post.data.faq} />
+          </div>
+        )}
+
+        <div class="article-cta reveal">
+          <h3>Ai nevoie de sprijin?</h3>
+          <p>Dacă te regăsești în cele de mai sus, putem lucra împreună. Programează o ședință la cabinet în Brașov sau online.</p>
+          <a href="/contact" class="btn">
+            <Icon name="calendar" width={17} height={17} />
+            Programează o ședință
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {related.length > 0 && (
+      <section class="sec sec-alt">
+        <div class="wrap">
+          <div class="sec-head reveal">
+            <span class="eyebrow">Citește în continuare</span>
+            <h2>Articole similare</h2>
+          </div>
+          <div class="blog-grid">
+            {related.map((p) => (
+              <a class="post-card reveal" href={`/blog/${p.id}`}>
+                <div class="post-body">
+                  <span class="post-cat">{p.data.category}</span>
+                  <h3>{p.data.title}</h3>
+                  <p>{p.data.description}</p>
+                  <div class="post-meta">
+                    <span>{formatDate(p.data.publishDate)}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </article>
+</Base>

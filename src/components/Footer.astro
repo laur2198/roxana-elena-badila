@@ -1,0 +1,35 @@
+---
+import { SITE, CONTACT, CREDENTIALS, SERVICES } from '../consts';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand-block">
+        <div class="foot-brand">{SITE.name}<span>{SITE.subtitle}</span></div>
+        <p>Cabinet individual de psihologie. Psihoterapie pentru adulți, la cabinet în Brașov și online.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navigare</h5>
+        <a href="/despre">Despre mine</a>
+        <a href="/servicii">Servicii</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Servicii</h5>
+        {SERVICES.map((s) => <a href={`/servicii/${s.slug}`}>{s.navLabel}</a>)}
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href={CONTACT.phoneHref} class="placeholder">{CONTACT.phone}</a>
+        <a href={CONTACT.emailHref} class="placeholder">{CONTACT.email}</a>
+        <span class="foot-note">{CONTACT.addressLocality}, România</span>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© {year} {SITE.name}. Toate drepturile rezervate.</span>
+      <span>Membră {CREDENTIALS.copsiMembership}</span>
+    </div>
+  </div>
+</footer>

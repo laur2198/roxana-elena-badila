@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roxana Elena Bădilă · Psiholog & Psihoterapeut CBT Brașov</title>
+<meta name="description" content="Cabinet individual de psihologie în Brașov. Psihoterapie individuală pentru adulți în terapie cognitiv-comportamentală (CBT). Ședințe la cabinet și online.">
+<meta name="author" content="Roxana Elena Bădilă">
+<meta property="og:title" content="Roxana Elena Bădilă · Psiholog & Psihoterapeut CBT Brașov">
+<meta property="og:description" content="Psihoterapie individuală pentru adulți, în terapie cognitiv-comportamentală. Cabinet în Brașov și ședințe online.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ro_RO">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage:#7C9885;
+    --sage-deep:#5B7468;
+    --sage-soft:rgba(124,152,133,.14);
+    --cream:#F7F4EF;
+    --cream-2:#EFEAE1;
+    --ink:#2E2E2E;
+    --ink-soft:#5A5A55;
+    --white:#FFFFFF;
+    --line:rgba(91,116,104,.14);
+    --radius:18px;
+    --radius-sm:14px;
+    --shadow:0 14px 40px -22px rgba(46,46,46,.35);
+    --shadow-soft:0 8px 30px -20px rgba(46,46,46,.4);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,-apple-system,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    width:100%;
+  }
+  /* anchor offset so sticky nav doesn't cover section titles */
+  section[id],header[id]{scroll-margin-top:88px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 56px}
+  h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:500;line-height:1.18;letter-spacing:-.01em;color:var(--ink)}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--sage-deep);background:var(--sage-soft);padding:7px 16px;border-radius:999px;margin-bottom:24px}
+  .eyebrow::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--sage)}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--sage-deep);color:#fff;padding:14px 28px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.95rem;transition:transform .2s,background .2s,box-shadow .2s;border:none;cursor:pointer;line-height:1}
+  .btn:hover{background:var(--sage);transform:translateY(-2px);box-shadow:var(--shadow-soft)}
+  .btn svg{width:17px;height:17px}
+  .btn-ghost{background:transparent;color:var(--sage-deep);border:1.5px solid rgba(91,116,104,.4)}
+  .btn-ghost:hover{background:var(--sage-soft);transform:translateY(-2px);box-shadow:none}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:rgba(247,244,239,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:76px}
+  .brand{font-family:'Fraunces',serif;font-weight:600;font-size:1.18rem;color:var(--sage-deep);text-decoration:none;line-height:1.1}
+  .brand span{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links a:not(.btn){color:var(--ink-soft);text-decoration:none;font-size:.93rem;font-weight:500;transition:color .2s}
+  .nav-links a:not(.btn):hover{color:var(--sage-deep)}
+  .nav-drop{position:relative}
+  .drop-toggle{display:inline-flex;align-items:center;gap:5px;color:var(--ink-soft);text-decoration:none;font-size:.93rem;font-weight:500;cursor:pointer;transition:color .2s}
+  .drop-toggle:hover{color:var(--sage-deep)}
+  .drop-toggle svg{width:15px;height:15px;transition:transform .25s}
+  .nav-drop:hover .drop-toggle svg{transform:rotate(180deg)}
+  .drop-menu{position:absolute;top:calc(100% + 16px);left:50%;transform:translateX(-50%) translateY(8px);background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:10px;min-width:260px;opacity:0;visibility:hidden;transition:opacity .2s,transform .2s;display:flex;flex-direction:column;gap:2px;z-index:60}
+  .nav-drop:hover .drop-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+  .drop-menu::before{content:"";position:absolute;top:-16px;left:0;right:0;height:16px}
+  .drop-menu a{padding:11px 15px;border-radius:10px;color:var(--ink);font-size:.92rem;font-weight:500;text-decoration:none;transition:background .15s,color .15s;white-space:nowrap}
+  .drop-menu a:hover{background:var(--cream);color:var(--sage-deep)}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;color:var(--sage-deep);padding:6px}
+  .menu-btn svg{width:26px;height:26px}
+  @media(max-width:860px){
+    .nav-links{position:fixed;inset:76px 0 auto 0;background:var(--cream);flex-direction:column;gap:0;padding:10px 24px 24px;border-bottom:1px solid var(--line);transform:translateY(-130%);transition:transform .3s;box-shadow:var(--shadow-soft)}
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a:not(.btn){width:100%;padding:14px 0;border-bottom:1px solid var(--line);font-size:1.05rem}
+    .nav-links .btn{margin-top:16px;width:100%;justify-content:center}
+    .nav-drop{width:100%}
+    .drop-toggle{width:100%;padding:14px 0;border-bottom:1px solid var(--line);font-size:1.05rem;justify-content:space-between}
+    .drop-menu{position:static;opacity:1;visibility:visible;transform:none;box-shadow:none;border:none;border-radius:0;padding:4px 0 4px 14px;min-width:0;background:transparent;z-index:auto}
+    .drop-menu::before{display:none}
+    .nav-links .drop-menu a{font-size:.97rem;padding:11px 0;color:var(--ink-soft)}
+    .menu-btn{display:block}
+  }
+
+  /* HERO */
+  .hero{padding:80px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:center}
+  .hero h1{font-size:3.25rem;margin-bottom:24px}
+  .hero h1 em{font-style:italic;color:var(--sage-deep)}
+  .hero .lead{font-size:1.18rem;color:var(--ink-soft);max-width:31em;margin-bottom:36px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px}
+  .hero-meta{display:flex;gap:24px;flex-wrap:wrap;font-size:.92rem;color:var(--ink-soft)}
+  .hero-meta span{display:flex;align-items:center;gap:9px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--sage);flex:none}
+  .portrait{position:relative}
+  .portrait-img{aspect-ratio:4/5;border-radius:24px;background:linear-gradient(155deg,#d3ddd5,#9fb3a4);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:var(--sage-deep);font-size:.85rem;text-align:center;padding:24px;font-weight:500}
+  .badge-float{position:absolute;bottom:24px;left:24px;background:rgba(255,255,255,.95);backdrop-filter:blur(4px);border-radius:16px;padding:16px 20px;box-shadow:var(--shadow);max-width:240px;display:flex;gap:13px;align-items:flex-start}
+  .badge-float .bi{width:38px;height:38px;border-radius:11px;background:var(--sage-soft);display:flex;align-items:center;justify-content:center;color:var(--sage-deep);flex:none}
+  .badge-float .bi svg{width:20px;height:20px}
+  .badge-float strong{display:block;font-family:'Fraunces',serif;font-weight:500;color:var(--ink);font-size:1rem;line-height:1.2}
+  .badge-float small{color:var(--ink-soft);font-size:.78rem;line-height:1.4;display:block;margin-top:3px}
+  @media(max-width:980px){.wrap{padding:0 44px}}
+  @media(max-width:680px){.wrap{padding:0 32px}}
+  @media(max-width:860px){
+    .hero{padding:48px 0 64px}
+    .hero-grid{grid-template-columns:1fr;gap:52px}
+    .hero h1{font-size:2.45rem}
+    .portrait{max-width:380px;margin:0 auto}
+    .badge-float{left:18px;bottom:18px;max-width:240px}
+    .sec{padding:68px 0}
+  }
+
+  /* SECTIONS */
+  .sec{padding:84px 0}
+  .sec-alt{background:var(--cream-2)}
+  .sec-head{max-width:38em;margin:0 auto 48px;text-align:center}
+  .sec-head.left{margin-left:0;text-align:left}
+  .sec-head h2{font-size:2.3rem;margin-bottom:16px}
+  .sec-head p{color:var(--ink-soft);font-size:1.05rem}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+  .about-photo{aspect-ratio:1/1;border-radius:24px;background:linear-gradient(155deg,#e3e9e2,#b7c6bb);box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;color:var(--sage-deep);font-weight:500;font-size:.85rem;text-align:center;padding:20px}
+  .about-grid h2{font-size:2.25rem;margin-bottom:18px}
+  .about-grid p{color:var(--ink-soft);margin-bottom:16px}
+  .about-grid .quote{font-family:'Fraunces',serif;font-style:italic;font-size:1.3rem;color:var(--sage-deep);line-height:1.4;border-left:3px solid var(--sage);padding-left:20px;margin:26px 0}
+  @media(max-width:820px){.about-grid{grid-template-columns:1fr;gap:34px}.about-photo{order:2;max-width:320px;margin:0 auto;aspect-ratio:5/4}}
+
+  /* CARDS */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media(max-width:820px){.cards{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
+  .card{background:var(--white);border-radius:var(--radius);padding:32px 30px;border:1px solid var(--line);transition:transform .25s,box-shadow .25s}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+  .card .ic{width:54px;height:54px;border-radius:15px;background:var(--cream-2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--sage-deep)}
+  .sec-alt .card .ic{background:var(--cream)}
+  .card .ic svg{width:26px;height:26px}
+  .card h3{font-size:1.28rem;margin-bottom:11px}
+  .card p{color:var(--ink-soft);font-size:.96rem}
+
+  /* PROCESS */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:step}
+  @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:520px){.steps{grid-template-columns:1fr}}
+  .step{position:relative;padding-top:14px}
+  .step .num{font-family:'Fraunces',serif;font-size:2.4rem;color:var(--sage);font-weight:500;line-height:1;margin-bottom:12px}
+  .step h4{font-size:1.12rem;margin-bottom:8px}
+  .step p{color:var(--ink-soft);font-size:.93rem}
+
+  /* CREDENTIALS */
+  .cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:880px;margin:0 auto}
+  @media(max-width:680px){.cred-grid{grid-template-columns:1fr}}
+  .cred{display:flex;gap:16px;align-items:flex-start;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);padding:22px 24px}
+  .cred .ci{width:42px;height:42px;border-radius:11px;background:var(--sage-soft);color:var(--sage-deep);display:flex;align-items:center;justify-content:center;flex:none}
+  .cred .ci svg{width:21px;height:21px}
+  .cred strong{display:block;font-family:'Fraunces',serif;font-weight:500;font-size:1.05rem;margin-bottom:3px}
+  .cred span{color:var(--ink-soft);font-size:.9rem}
+  .cred-note{text-align:center;color:var(--ink-soft);font-size:.85rem;margin-top:26px}
+
+  /* FAQ */
+  .faq{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .faq details{background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);overflow:hidden;transition:box-shadow .2s}
+  .faq details[open]{box-shadow:var(--shadow-soft)}
+  .faq summary{list-style:none;cursor:pointer;padding:22px 26px;font-family:'Fraunces',serif;font-size:1.12rem;font-weight:500;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .chev{width:22px;height:22px;color:var(--sage-deep);flex:none;transition:transform .25s}
+  .faq details[open] summary .chev{transform:rotate(180deg)}
+  .faq .ans{padding:0 26px 24px;color:var(--ink-soft);font-size:.97rem}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  @media(max-width:820px){.contact-grid{grid-template-columns:1fr;gap:40px}}
+  .contact-info h2{font-size:2.25rem;margin-bottom:16px}
+  .contact-info > p{color:var(--ink-soft);margin-bottom:30px;font-size:1.05rem}
+  .ci-list{list-style:none;display:flex;flex-direction:column;gap:20px}
+  .ci-list li{display:flex;gap:16px;align-items:flex-start}
+  .ci-list .ci-ic{width:46px;height:46px;border-radius:12px;background:var(--sage-soft);color:var(--sage-deep);display:flex;align-items:center;justify-content:center;flex:none}
+  .ci-list .ci-ic svg{width:22px;height:22px}
+  .ci-list .lbl{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-bottom:2px}
+  .ci-list a,.ci-list .val{color:var(--ink);text-decoration:none;font-size:1.05rem;font-weight:500}
+  .ci-list a:hover{color:var(--sage-deep)}
+  .form{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:32px 30px;box-shadow:var(--shadow-soft)}
+  .form label{display:block;font-size:.85rem;font-weight:500;margin-bottom:7px;color:var(--ink)}
+  .form .field{margin-bottom:20px}
+  .form input,.form textarea{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:12px;font-family:inherit;font-size:.97rem;color:var(--ink);background:var(--cream);transition:border-color .2s,box-shadow .2s}
+  .form input:focus,.form textarea:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-soft)}
+  .form textarea{resize:vertical;min-height:120px}
+  .form .btn{width:100%;justify-content:center;margin-top:4px}
+  .form .privacy{font-size:.8rem;color:var(--ink-soft);margin-top:14px;text-align:center}
+
+  /* FOOTER */
+  footer{background:var(--sage-deep);color:#e9efe9;padding:54px 0 30px}
+  .foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;margin-bottom:36px}
+  .foot-brand{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:500;color:#fff;margin-bottom:8px}
+  .foot-brand span{display:block;font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#c2d2c5;margin-top:4px}
+  .foot-col h5{font-family:'Inter',sans-serif;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:#c2d2c5;margin-bottom:14px;font-weight:600}
+  .foot-col a{display:block;color:#e9efe9;text-decoration:none;font-size:.95rem;margin-bottom:9px;opacity:.9;transition:opacity .2s}
+  .foot-col a:hover{opacity:1}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.18);padding-top:22px;font-size:.85rem;color:#c2d2c5;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+  .placeholder{color:var(--sage-deep);background:var(--sage-soft);padding:1px 7px;border-radius:5px;font-size:.93em;font-weight:500}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+  /* small phones */
+  @media(max-width:560px){
+    .wrap{padding:0 26px}
+    .sec{padding:56px 0}
+    .hero{padding:42px 0 70px}
+    .hero h1{font-size:2.05rem}
+    .hero .lead{font-size:1.06rem}
+    .hero-cta{flex-direction:column;align-items:stretch}
+    .hero-cta .btn{justify-content:center}
+    .sec-head{margin-bottom:38px}
+    .sec-head h2,.about-grid h2,.contact-info h2{font-size:1.85rem}
+    .about-grid .quote{font-size:1.15rem}
+    .card{padding:26px 24px}
+    .form{padding:26px 22px}
+    .faq summary{padding:18px 20px;font-size:1.04rem}
+    .faq .ans{padding:0 20px 20px}
+    .foot-bottom{flex-direction:column;gap:6px}
+  }
+  @media(max-width:380px){
+    .hero h1{font-size:1.85rem}
+    .badge-float{padding:14px 16px}
+    .badge-float small{font-size:.74rem}
+  }
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">Roxana Elena Bădilă<span>Psiholog · Psihoterapeut CBT</span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Deschide meniul">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="#despre">Despre mine</a>
+      <div class="nav-drop">
+        <a href="#servicii" class="drop-toggle">Servicii
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <div class="drop-menu">
+          <a href="#serv-individuala">Psihoterapie individuală adulți</a>
+          <a href="#serv-evaluare">Evaluare psihologică clinică</a>
+          <a href="#serv-consiliere">Consiliere psihologică</a>
+          <a href="#serv-online">Ședințe online</a>
+          <a href="#arii">Arii de lucru</a>
+        </div>
+      </div>
+      <a href="#cum-lucrez">Cum lucrez</a>
+      <a href="#intrebari">Întrebări</a>
+      <a href="#contact" class="btn">Programează o ședință</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <span class="eyebrow">Brașov · Cabinet &amp; online</span>
+      <h1>Un spațiu sigur, în care <em>nespusul</em> își găsește numele.</h1>
+      <p class="lead">Psihoterapie individuală pentru adulți, în terapie cognitiv-comportamentală. Mergem în ritmul tău — fără grabă, fără judecată, cu instrumente care chiar funcționează.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Programează o ședință
+        </a>
+        <a href="#cum-lucrez" class="btn btn-ghost">Află cum lucrez</a>
+      </div>
+      <div class="hero-meta">
+        <span><i class="dot"></i> Anxietate &amp; stres</span>
+        <span><i class="dot"></i> Depresie</span>
+        <span><i class="dot"></i> Ședințe online</span>
+      </div>
+    </div>
+    <div class="portrait reveal">
+      <div class="portrait-img">[ fotografie portret — de înlocuit ]</div>
+      <div class="badge-float">
+        <span class="bi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </span>
+        <div>
+          <strong>Formare CBT</strong>
+          <small>Master, Univ. Babeș-Bolyai · psiholog clinician sub supervizare</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- DESPRE -->
+<section class="sec" id="despre">
+  <div class="wrap about-grid">
+    <div class="about-photo reveal">[ fotografie — de înlocuit ]</div>
+    <div class="reveal">
+      <span class="eyebrow">Despre mine</span>
+      <h2>Bună, sunt Roxana.</h2>
+      <p>Sunt psiholog clinician (sub supervizare) și psihoterapeut format în terapie cognitiv-comportamentală (CBT), cu master absolvit la Universitatea Babeș-Bolyai din Cluj-Napoca. Lucrez cu adulți, la cabinetul meu din Brașov și online.</p>
+      <p>CBT este o abordare riguroasă și validată științific: împreună înțelegem legătura dintre gânduri, emoții și comportamente și construim, pas cu pas, instrumente concrete pe care le poți folosi și în afara ședințelor.</p>
+      <p class="quote">Nu ofer rețete rapide. Îți ofer un spațiu în care să fii ascultat și ajutat să mergi acolo unde e nevoie — în ritmul tău.</p>
+      <p>Cred că schimbarea apare dintr-o relație de încredere și dintr-un demers personalizat, în care fiecare pas contează.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICII -->
+<section class="sec sec-alt" id="servicii">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Servicii</span>
+      <h2>Cum te pot ajuta</h2>
+      <p>Servicii de psihologie și psihoterapie pentru adulți, la cabinet în Brașov și online.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal" id="serv-individuala">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-12 0"/><circle cx="12" cy="11" r="4"/><path d="M12 3a5 5 0 0 1 5 5"/></svg></div>
+        <h3>Psihoterapie individuală adulți</h3>
+        <p>Ședințe individuale de psihoterapie cognitiv-comportamentală (CBT) pentru adulți, la cabinet sau online.</p>
+      </div>
+      <div class="card reveal" id="serv-evaluare">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg></div>
+        <h3>Evaluare psihologică clinică</h3>
+        <p>Evaluare și psihodiagnostic clinic pentru adulți, în context terapeutic sau la solicitare.</p>
+      </div>
+      <div class="card reveal" id="serv-consiliere">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Consiliere psihologică</h3>
+        <p>Sprijin punctual pentru perioade dificile, decizii importante sau momente de cumpănă.</p>
+      </div>
+      <div class="card reveal" id="serv-online">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div>
+        <h3>Ședințe online</h3>
+        <p>Aceeași calitate a lucrului ca la cabinet, de oriunde te-ai afla — comod și confidențial.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARII DE LUCRU -->
+<section class="sec" id="arii">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Arii de lucru</span>
+      <h2>Cu ce te ajut</h2>
+      <p>Dincolo de tipul de serviciu, iată temele cu care vin cel mai des oamenii în terapie.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a10 10 0 1 0-10-10"/><path d="M2 12h4l2-5 4 10 2-5h4"/></svg></div>
+        <h3>Anxietate &amp; atacuri de panică</h3>
+        <p>Înțelegem mecanismele anxietății, ale grijilor excesive și ale panicii și exersăm strategii concrete pentru a le gestiona.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a6 6 0 1 1 11-3"/><path d="M16 11a4 4 0 1 1 4 6H7"/><line x1="8" y1="20" x2="8" y2="22"/><line x1="13" y1="20" x2="13" y2="22"/></svg></div>
+        <h3>Depresie &amp; lipsă de sens</h3>
+        <p>Recâștigăm treptat energia, claritatea și legătura cu ceea ce contează cu adevărat pentru tine.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Stres &amp; burnout</h3>
+        <p>Lucrăm cu suprasolicitarea, epuizarea și echilibrul dintre muncă și viața personală.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+        <h3>Stimă de sine &amp; relații</h3>
+        <p>Explorăm tiparele din relații, încrederea în tine și modul în care te raportezi la ceilalți.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a8 8 0 0 0-12 0"/><circle cx="12" cy="11" r="4"/><path d="M12 3a5 5 0 0 1 5 5"/></svg></div>
+        <h3>Momente dificile de viață</h3>
+        <p>Pierderi, schimbări majore, decizii importante sau perioade în care simți că te-ai blocat.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div>
+        <h3>Echilibru emoțional</h3>
+        <p>Reglarea emoțiilor intense, gestionarea furiei, a vinovăției sau a gândurilor copleșitoare.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CUM LUCREZ -->
+<section class="sec sec-alt" id="cum-lucrez">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Cum lucrez</span>
+      <h2>Cum decurge un proces de terapie</h2>
+      <p>Fără mister și fără presiune. Iată la ce să te aștepți, de la primul contact până la finalul colaborării.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">01</div>
+        <h4>Primul contact</h4>
+        <p>Îmi scrii sau mă suni. Stabilim împreună o primă întâlnire, la cabinet sau online.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">02</div>
+        <h4>Ședința de evaluare</h4>
+        <p>Ne cunoaștem, înțeleg ce te aduce în terapie și clarificăm obiectivele. Vezi dacă îți este confortabil cu mine.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">03</div>
+        <h4>Lucrul propriu-zis</h4>
+        <p>Ședințe regulate (de regulă săptămânale), în care construim instrumente concrete și lucrăm pe temele tale.</p>
+      </div>
+      <div class="step reveal">
+        <div class="num">04</div>
+        <h4>Consolidare &amp; final</h4>
+        <p>Pe măsură ce apar schimbările, rărim întâlnirile și încheiem când te simți pregătit să continui singur.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACREDITARI -->
+<section class="sec" id="acreditari">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Formare &amp; acreditări</span>
+      <h2>Pregătire profesională</h2>
+      <p>Practica mea este construită pe formare riguroasă și pe respectarea standardelor profesiei.</p>
+    </div>
+    <div class="cred-grid">
+      <div class="cred reveal">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+        <div><strong>Master în psihologie</strong><span>Universitatea Babeș-Bolyai, Cluj-Napoca</span></div>
+      </div>
+      <div class="cred reveal">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></span>
+        <div><strong>Psiholog clinician</strong><span>sub supervizare</span></div>
+      </div>
+      <div class="cred reveal">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3L12 16.5 6.5 19.5l1-6.3L3 8.9 9 8z"/></svg></span>
+        <div><strong>Psihoterapeut CBT</strong><span>formare în terapie cognitiv-comportamentală</span></div>
+      </div>
+      <div class="cred reveal">
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 5-3.5 7.5-8.5 9.5C7.5 19.5 4 17 4 12V6l8-3 8 3z"/></svg></span>
+        <div><strong>Cod Registrul psihologilor</strong><span class="placeholder">de completat (COPSI)</span></div>
+      </div>
+    </div>
+    <p class="cred-note">Membră a Colegiului Psihologilor din România (COPSI). <span class="placeholder">Numărul atestatului — de completat.</span></p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec sec-alt" id="intrebari">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Întrebări frecvente</span>
+      <h2>Bine de știut înainte de prima ședință</h2>
+    </div>
+    <div class="faq">
+      <details class="reveal" open>
+        <summary>Cât durează o ședință și cât de des au loc?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="ans">O ședință durează în mod obișnuit 50 de minute. La început întâlnirile sunt de regulă săptămânale, iar pe parcurs frecvența se poate adapta în funcție de evoluția ta.</div>
+      </details>
+      <details class="reveal">
+        <summary>Ce se discută rămâne confidențial?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="ans">Da. Tot ce discutăm este confidențial, în limitele stabilite de codul deontologic al profesiei de psiholog. Confidențialitatea este o bază esențială a relației terapeutice.</div>
+      </details>
+      <details class="reveal">
+        <summary>Ședințele online sunt la fel de eficiente?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="ans">Pentru psihoterapia adulților, ședințele online oferă în general aceeași calitate a lucrului ca cele la cabinet. Ai nevoie doar de un loc liniștit și o conexiune bună la internet.</div>
+      </details>
+      <details class="reveal">
+        <summary>Cum știu dacă am nevoie de terapie?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="ans">Nu e nevoie de un „motiv suficient de grav". Dacă simți că ceva te apasă, te blochează sau pur și simplu vrei să te înțelegi mai bine, terapia poate fi un sprijin. Putem clarifica împreună la prima întâlnire dacă pot fi persoana potrivită pentru tine.</div>
+      </details>
+      <details class="reveal">
+        <summary>Cum fac o programare?
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="ans">Îmi scrii prin formularul de mai jos, pe e-mail sau pe WhatsApp, iar eu îți răspund pentru a stabili împreună ziua și ora primei ședințe.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow">Contact</span>
+      <h2>Hai să vorbim</h2>
+      <p>Poți începe cu o întrebare, cu nevoia de a clarifica ceva sau direct cu o programare. Îți răspund cât pot de repede.</p>
+      <ul class="ci-list">
+        <li>
+          <span class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg></span>
+          <div><div class="lbl">Telefon</div><a href="tel:+40700000000" class="placeholder">+40 7XX XXX XXX</a></div>
+        </li>
+        <li>
+          <span class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></span>
+          <div><div class="lbl">E-mail</div><a href="mailto:contact@example.ro" class="placeholder">adresă@email.ro</a></div>
+        </li>
+        <li>
+          <span class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <div><div class="lbl">Cabinet</div><span class="val placeholder">Adresă cabinet, Brașov</span></div>
+        </li>
+        <li>
+          <span class="ci-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg></span>
+          <div><div class="lbl">Program</div><span class="val">Luni–Vineri, pe bază de programare</span></div>
+        </li>
+      </ul>
+    </div>
+    <form class="form reveal" onsubmit="return handleSubmit(event)">
+      <div class="field">
+        <label for="nume">Nume</label>
+        <input type="text" id="nume" name="nume" required placeholder="Numele tău">
+      </div>
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" required placeholder="adresa ta de e-mail">
+      </div>
+      <div class="field">
+        <label for="tel">Telefon (opțional)</label>
+        <input type="tel" id="tel" name="tel" placeholder="numărul tău de telefon">
+      </div>
+      <div class="field">
+        <label for="mesaj">Mesaj</label>
+        <textarea id="mesaj" name="mesaj" required placeholder="Spune-mi pe scurt cu ce te-aș putea ajuta."></textarea>
+      </div>
+      <button type="submit" class="btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        Trimite mesajul
+      </button>
+      <p class="privacy">Datele tale sunt folosite doar pentru a-ți răspunde. <span class="placeholder">De conectat la e-mail / serviciu de formulare.</span></p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Roxana Elena Bădilă<span>Psiholog · Psihoterapeut CBT</span></div>
+        <p style="max-width:24em;opacity:.9;font-size:.92rem">Cabinet individual de psihologie. Psihoterapie pentru adulți, la cabinet în Brașov și online.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Navigare</h5>
+        <a href="#despre">Despre mine</a>
+        <a href="#servicii">Servicii</a>
+        <a href="#cum-lucrez">Cum lucrez</a>
+        <a href="#intrebari">Întrebări frecvente</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contact</h5>
+        <a href="tel:+40700000000" class="placeholder">+40 7XX XXX XXX</a>
+        <a href="mailto:contact@example.ro" class="placeholder">adresă@email.ro</a>
+        <span style="display:block;color:#c2d2c5;font-size:.92rem">Brașov, România</span>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> Roxana Elena Bădilă. Toate drepturile rezervate.</span>
+      <span>Membră COPSI · Colegiul Psihologilor din România</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var menuBtn = document.getElementById('menuBtn');
+  var navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', function(){ navLinks.classList.toggle('open'); });
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+  });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  function handleSubmit(e){
+    e.preventDefault();
+    alert('Formularul este demonstrativ. Conectează-l la e-mailul tău sau la un serviciu (ex. Formspree) pentru a primi mesajele.');
+    return false;
+  }
+</script>
+</body>
+</html>
