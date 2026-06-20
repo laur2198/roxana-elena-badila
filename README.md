@@ -12,6 +12,7 @@ pentru SEO și pentru trafic AI (GEO/AEO): schema JSON-LD, `sitemap`, `robots.tx
 - [Ce trebuie completat (placeholdere)](#ce-trebuie-completat-placeholdere)
 - [Conectarea formularului de contact](#conectarea-formularului-de-contact)
 - [Deploy](#deploy)
+- [Trecere la domeniu propriu](#trecere-la-domeniu-propriu)
 - [Checklist Local SEO & taskuri în afara codului](#checklist-local-seo--taskuri-în-afara-codului)
 
 ## Cerințe
@@ -97,14 +98,50 @@ Formularul de pe `/contact` trimite prin [Web3Forms](https://web3forms.com) (gra
 > Alternativ poți folosi Formspree sau o funcție serverless — schimbă doar `action`/endpoint-ul fetch.
 
 ## Deploy
-Site static (`output: 'static'`), output în `dist/`.
+Site static (`output: 'static'`), output în `dist/`. Deploy curent: **GitHub Pages**
+(project site) prin GitHub Actions.
 
-**Cloudflare Pages** (sau Netlify):
-- Build command: `npm run build`
-- Output directory: `dist`
-- Node version: 18+ (setează `NODE_VERSION=20` dacă e nevoie)
+**GitHub Pages (activ):**
+1. Workflow-ul `.github/workflows/deploy.yml` rulează la fiecare push în `main`
+   (build cu `withastro/action@v3`, publicare cu `actions/deploy-pages@v4`).
+2. **Pas manual unic:** în GitHub → **Settings → Pages → Build and deployment →
+   Source: „GitHub Actions"** (NU „Deploy from a branch"). Altfel rulează Jekyll.
+3. Site-ul apare la `https://laur2198.github.io/roxana-elena-badila/`.
 
-După primul deploy, schimbă domeniul în `astro.config.mjs` + `src/consts.ts` și redeschide build-ul.
+> `public/.nojekyll` dezactivează Jekyll, iar `base: '/roxana-elena-badila'` din
+> `astro.config.mjs` face ca toate căile (assets + linkuri) să funcționeze pe subcale.
+
+**Alternativ (Cloudflare Pages / Netlify):** Build command `npm run build`, output `dist`,
+Node 18+. Pe aceste platforme site-ul stă în rădăcină ⇒ vezi „Trecere la domeniu propriu"
+(fără `base`).
+
+## Trecere la domeniu propriu
+Când cabinetul are un domeniu (ex. `roxanabadila.ro`), treci de la project site (cu subcale)
+la rădăcina domeniului (fără subcale). Pașii **exacți**:
+
+1. **`astro.config.mjs`** — comută de la setul (A) la (B), conform comentariilor din fișier:
+   - comentează cele 2 linii `SITE_URL` + `BASE_PATH` din (A);
+   - decomentează linia `export const SITE_URL = 'https://DOMENIU.ro';` din (B) și pune domeniul real;
+   - comentează (sau șterge) linia `base: BASE_PATH,` din `defineConfig()`.
+2. **`withBase()` — nimic de făcut manual.** Helper-ul citește `import.meta.env.BASE_URL`;
+   fără `base`, acesta devine `/`, deci `withBase()` devine automat no-op (`/despre` rămâne `/despre`,
+   fără `//`). Logica e deja pregătită în `src/lib/url.ts`.
+3. **`public/CNAME`** — creează fișierul cu o singură linie: domeniul, fără `https://` și fără slash:
+   ```
+   roxanabadila.ro
+   ```
+   (Astro îl copiază automat în `dist/`, iar GitHub Pages îl folosește ca domeniu propriu.)
+4. **`public/robots.txt`** — schimbă linia `Sitemap:` la `https://roxanabadila.ro/sitemap-index.xml`.
+5. **`public/llms.txt`** — înlocuiește toate URL-urile `https://laur2198.github.io/roxana-elena-badila/...`
+   cu `https://roxanabadila.ro/...`.
+6. **`src/consts.ts`** (opțional, dacă e cazul) — `SITE.url` este folosit doar ca origin; la domeniu
+   propriu setează-l pe `https://roxanabadila.ro` (sau lasă config-ul să dicteze, dacă preferi un singur loc).
+7. **GitHub → Settings → Pages → Custom domain** — introdu domeniul și bifează „Enforce HTTPS”.
+   Configurează la registrar DNS-ul cerut de GitHub (CNAME spre `laur2198.github.io` sau înregistrările A).
+8. `npm run build` local pentru verificare, apoi `git commit` + `git push`. Workflow-ul redeployează.
+
+> Verificare rapidă după build: în `dist/index.html`, căile de assets încep cu `/_astro/...`
+> (fără `/roxana-elena-badila`), iar `canonical`/sitemap arată domeniul propriu.
 
 ## Checklist Local SEO & taskuri în afara codului
 Acestea **nu** se rezolvă din cod, dar aduc cei mai mulți clienți:
